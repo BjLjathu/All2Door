@@ -1,7 +1,6 @@
-import { SelectContent } from "@radix-ui/react-select";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Select, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Select, SelectItem, SelectTrigger, SelectValue ,SelectContent } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 
@@ -11,12 +10,13 @@ export default function CommonForm({
   setFormData,
   onSubmit,
   buttonText,
+  isBtnDisabled,
 }) {
   function renderInputsByComponentType(getControlItem) {
     let elemet = null;
     const value = formData[getControlItem.name] || "";
 
-    switch (getControlItem.componetType) {
+    switch (getControlItem.componentType) {
       case "input":
         elemet = (
           <Input
@@ -38,13 +38,13 @@ export default function CommonForm({
             ...formData,
             [getControlItem.name] : value
           }))} value={value}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder={getControlItem.placeholder} />
+            <SelectTrigger className="w-full  ">
+              <SelectValue placeholder={getControlItem.label}  />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className='bg-white border border-gray-200 shadow-md'>
               {getControlItem.options && getControlItem.options.length > 0
                 ? getControlItem.options.map((optionItem) => (
-                    <SelectItem key={optionItem.id} id={optionItem.id} >
+                    <SelectItem className='cursor-pointer' key={optionItem.id} value={optionItem.id} >
                       {optionItem.label} 
                     </SelectItem>
                   ))
@@ -97,7 +97,7 @@ export default function CommonForm({
           </div>
         ))}
       </div>
-      <Button type="submit" className="mt-2 w-full bg-purple-500 cursor-pointer ">
+      <Button disabled={isBtnDisabled} type="submit" className="mt-2 w-full bg-purple-500 cursor-pointer ">
         {buttonText || "submit"}
       </Button>
     </form>
