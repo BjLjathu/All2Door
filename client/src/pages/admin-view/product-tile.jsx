@@ -15,11 +15,11 @@ function AdminProductTile({
   return (
     <Card className="w-full max-w-sm mx-auto  ">
       <div>
-        <div className="relative">
+        <div className="relative border  ">
           <img
             src={product?.image}
             alt={product.title}
-            className="w-full h-300px object-cover rounded-t-lg"
+            className="w-full h-[200px] object-cover rounded-t-lg"
           />
         </div>
         <CardContent>
@@ -44,10 +44,11 @@ function AdminProductTile({
               setCurrentEditedId(product?._id);
               setFormData(product);
             }}
+            class="bg-red-500 text-white font-medium px-4 py-2 rounded-md shadow hover:bg-red-600 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-300"
           >
             Edit
           </Button>
-          <Button onClick={()=> handleDelete(product?._id)}>Delete</Button>
+          <Button className="bg-green-500 text-white font-medium px-4 py-2 rounded-md shadow hover:bg-green-600 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-300" onClick={()=> handleDelete(product?._id)}>Delete</Button>
         </CardFooter>
       </div>
     </Card>
