@@ -60,10 +60,7 @@ export const addProductFormElements = [
     name: "category",
     componentType: "select",
     options: [
-      {
-        id: "men",
-        lebel: "Men",
-      },
+      { id: "men",label: "Men",},
       { id: "women", label: "Women" },
       { id: "kids", label: "Kids" },
       { id: "accessories", label: "Accessories" },
@@ -165,5 +162,5 @@ export const sortOptions = [
   {id:'price-lowthhigh' , label:'Price:Low to High'},
   {id:'price-hightolow',label:'Price:High to Low'},
   {id:'title:atoz' , label:'Title: A to Z'},
-  {id:'title:atoa',label:'Title: Z to A'}
+  {id:'title:ztoa',label:'Title: Z to A'}
 ]
