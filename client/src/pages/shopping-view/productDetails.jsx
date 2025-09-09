@@ -10,11 +10,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 
 function ProductDetails({ open, setOpen, productDetails }) {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
-  const dispatch = useDispatch()
-  const {user} = useSelector(state=>state.auth)
-
-   //this is for the handling the add to card to the shop
+  //this is for the handling the add to card to the shop
 
   function handleAddtoCard(getCurrentProductId) {
     if (!user?.id) {
@@ -28,16 +27,16 @@ function ProductDetails({ open, setOpen, productDetails }) {
         quantity: 1,
       })
     ).then((data) => {
-      if(data?.payload?.success){
-        dispatch(fetchCartItems(user?.id))
+      if (data?.payload?.success) {
+        dispatch(fetchCartItems(user?.id));
       }
-      toast("item added to the card Successfully")
+      toast("item added to the card Successfully");
     });
   }
 
-  function handledialogClose(){
-    setOpen(false)
-    dispatch(setProductDetails())
+  function handledialogClose() {
+    setOpen(false);
+    dispatch(setProductDetails());
   }
   return (
     <Dialog open={open} onOpenChange={handledialogClose}>
@@ -83,7 +82,12 @@ function ProductDetails({ open, setOpen, productDetails }) {
             <span className="text-muted-forground">(4.5)</span>
           </div>
           <div className="mt-5 mb-5">
-            <Button className='w-[100px] mx-auto bg-blue-500 text-white font-medium px-2 py-1 rounded-md shadow hover:bg-blue-600 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-300  cursor-pointer' onClick={()=>handleAddtoCard(productDetails?._id)}>Add to Card</Button>
+            <Button
+              className="w-[100px] mx-auto bg-blue-500 text-white font-medium px-2 py-1 rounded-md shadow hover:bg-blue-600 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-300  cursor-pointer"
+              onClick={() => handleAddtoCard(productDetails?._id)}
+            >
+              Add to Card
+            </Button>
           </div>
           <Separator className="bg-gray-500" />
           <div className="max-h-[300px] overflow-auto">
@@ -155,8 +159,8 @@ function ProductDetails({ open, setOpen, productDetails }) {
               </div>
             </div>
             <div className="mt-6 flex gap-2">
-                <Input placeholder='Write a Reviw...'/>
-                <Button>Submit</Button>
+              <Input placeholder="Write a Reviw..." />
+              <Button>Submit</Button>
             </div>
           </div>
         </div>
