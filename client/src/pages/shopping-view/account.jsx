@@ -1,7 +1,15 @@
-function ShoppingAccount(){
-  return <div> 
-    ShoppingAccount
-    <div><h1>hi seema</h1></div></div>;
+import accImg from '../../assets/account.jpg'
+
+
+function ShoppingAccount() {
+  return (
+    <div className="flex flex-col">
+      <div className="relative h-[300px] w-full overflow-hidden">
+        <img src={accImg} alt="" />
+      </div>
+      
+    </div>
+  );
 }
 
 export default ShoppingAccount;
