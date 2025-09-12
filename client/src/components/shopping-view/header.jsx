@@ -80,6 +80,8 @@ function HeaderRightContent() {
               ? cartItems.items
               : []
           }
+
+          setOpenCartSheet={setOpenCartSheet}
         />
       </Sheet>
 
