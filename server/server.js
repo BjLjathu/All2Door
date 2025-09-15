@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -7,6 +8,8 @@ const adminProductsRoter = require('./routes/admin/products-routes')
 const shopProductsRouter = require('./routes/shop/products-routes')
 const shopCartRouter = require('./routes/shop/cart-routes')
 const shopAddresstRouter = require('./routes/shop/address-routes')
+const shopOrderRouter = require('./routes/shop/order-routes')
+
 
 mongoose
   .connect("mongodb+srv://bjjathu04:bjjathu2131@cluster0.h8qkzfe.mongodb.net/")
@@ -38,6 +41,7 @@ app.use('/api/admin/products',adminProductsRoter)
 app.use('/api/shop/products',shopProductsRouter)
 app.use('/api/shop/cart',shopCartRouter)
 app.use('/api/shop/address',shopAddresstRouter)
+app.use('/api/shop/order',shopOrderRouter)
 
 app.listen(PORT, () => console.log("Server is now Running on port 5000"));
 
