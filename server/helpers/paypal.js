@@ -1,11 +1,6 @@
+const Stripe = require("stripe");
+require("dotenv").config();
 
-import paypal from "@paypal/paypal-server-sdk";
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-const client = new paypal.core.PayPalHttpClient(
-  new paypal.core.SandboxEnvironment(
-    "YOUR_CLIENT_ID",
-    "YOUR_CLIENT_SECRET"
-  )
-);
-
-
+module.exports = stripe;

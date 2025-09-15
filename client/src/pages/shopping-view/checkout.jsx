@@ -1,11 +1,18 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import img from "../../assets/account.jpg";
 import Address from "../../components/shopping-view/address";
 import UserCartItemsContent from "@/components/shopping-view/cart-items-content";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { createNewOrder } from "@/store/shop/order-slice";
 
 function ShoppingCheckout() {
   const { cartItems } = useSelector((state) => state.shopCart);
+  const { user } = useSelector((state) => state.auth);
+  const [currentSelectedAddress, setCurrentSelectedAddress] = useState(null);
+  const dispatch = useDispatch()
+  const [isPaymentStart,setIsPaymentStart] = useState(false)
+  console.log(currentSelectedAddress, "CardItems");0
 
   const totalCardAmount =
     cartItems && cartItems.items && cartItems.items.length > 0
@@ -19,6 +26,53 @@ function ShoppingCheckout() {
           0
         )
       : 0;
+
+  function handleInitiatePaypalPayment() {
+    const orderData = {
+      userId: user?.id,
+      cartItems: cartItems.items.map((singleCartItem) => ({
+        productId: singleCartItem?.productId,
+        title: singleCartItem?.title,
+        image: singleCartItem?.image,
+        price:
+          singleCartItem?.salePrice > 0
+            ? singleCartItem?.salePrice
+            : singleCartItem?.price,
+        quantity: singleCartItem.quantity,
+})),
+      addressInfo: {
+        addressId: currentSelectedAddress?._id,
+        address: currentSelectedAddress?.address,
+        city: currentSelectedAddress?.city,
+        pincode: currentSelectedAddress?.pincode,
+        phone: currentSelectedAddress?.phone,
+        notes: currentSelectedAddress?.notes,
+      },
+      orderStatus: "pending",
+      paymentMethod: "stripe",
+      paymentStatus: "pending",
+      totalAmount: totalCardAmount,
+      orderDate: new Date(),
+      orderUpdateDate: new Date(),
+      paymentId: "",
+      payerId: "",
+    };
+
+    dispatch(createNewOrder(orderData)).then((data)=>{
+      console.log(data,'sangam');
+      if (data?.payload?.url) {
+        setIsPaymentStart(true);
+        // 🚀 Redirect to Stripe Checkout
+        window.location.href = data.payload.url;
+      } else {
+        console.error("Stripe session URL not found", data);
+      } 
+      
+    })
+    
+  }
+
+
   return (
     <div className="flex flex-col">
       <div className="relative h-[300px] w-full overflow-hidden">
@@ -29,7 +83,7 @@ function ShoppingCheckout() {
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5 p-5">
-        <Address />
+        <Address setCurrentSelectedAddress={setCurrentSelectedAddress} />
 
         <div className="flex flex-col gap-5">
           {cartItems && cartItems.items && cartItems.items.length > 0
@@ -43,10 +97,11 @@ function ShoppingCheckout() {
             <span className="font-bold ">${totalCardAmount}</span>
           </div>
           <div className="mt-4 w-full">
-          <Button className='w-full'>Checkout With Paypal</Button>
+            <Button onClick={handleInitiatePaypalPayment} className="w-full">
+              Checkout With Paypal
+            </Button>
+          </div>
         </div>
-        </div>
-        
       </div>
     </div>
   );
