@@ -23,11 +23,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { use, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllFilteredProducts, fetchProductsDetails } from "@/store/shop/product-slice";
-import ShoppingProductTile from "./product-tile";
+import ShoppingProductTile from "../../components/shopping-view/product-tile";
 import { useNavigate } from "react-router-dom";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import { toast } from "sonner";
-import ProductDetails from "./productDetails";
+import ProductDetails from "../../components/shopping-view/productDetails";
 
 function ShoppingHome() {
   const slides = [bannerOne, bannerTow, bannerThree];
