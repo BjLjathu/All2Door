@@ -16,9 +16,9 @@ import {
 import { ArrowUp, ArrowUpDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ShoppingProductTile from "./product-tile";
+import ShoppingProductTile from "../../components/shopping-view/product-tile";
 import { useSearchParams } from "react-router-dom";
-import ProductDetails from "./productDetails";
+import ProductDetails from "../../components/shopping-view/productDetails";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import { toast } from "sonner"
 function ShoppingListing() {
